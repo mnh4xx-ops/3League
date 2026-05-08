@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -83,11 +83,15 @@
     font-variant-numeric: tabular-nums;
   }
 
-  .board-wrap { display: flex; align-items: center; justify-content: center; flex: 1; width: 100%; padding: 6px 0; min-height: 0; }
+  .board-wrap { 
+    display: flex; align-items: center; justify-content: center; 
+    flex: 1; width: 100%; padding: 6px 10px; min-height: 0; overflow: hidden;
+  }
 
   .board {
     display: grid; grid-template-rows: repeat(6, 1fr); gap: 5px;
-    width: min(330px, 80vw); height: min(396px, calc(80vw * 6 / 5)); max-height: 100%;
+    width: 100%; max-width: 330px; aspect-ratio: 5 / 6;
+    max-height: 100%; margin: 0 auto;
   }
 
   .row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; direction: rtl; }
@@ -226,6 +230,7 @@
   @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
   @keyframes scaleIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
 
+  /* Media Queries for shorter/smaller screens */
   @media (max-width: 380px) {
     .key { height: 44px; font-size: 14px; }
     .key.wide { font-size: 11px; }
@@ -234,8 +239,20 @@
     .name-pill { height: 34px; font-size: 12px; padding: 0 10px; max-width: 110px; }
   }
 
-  @media (min-height: 720px) {
-    .board { width: min(360px, 84vw); height: min(432px, calc(84vw * 6 / 5)); }
+  @media (max-height: 680px) {
+    .key { height: 42px; font-size: 14px; }
+    .board { max-width: 280px; gap: 4px; }
+    .row { gap: 4px; }
+  }
+
+  @media (max-height: 600px) {
+    header { padding: 6px 12px; }
+    h1 { font-size: 18px; }
+    .info-bar { padding: 4px 0; }
+    .key { height: 38px; font-size: 13px; }
+    .board { max-width: 240px; gap: 3px; }
+    .row { gap: 3px; }
+    .icon-btn, .name-pill { height: 32px; }
   }
 </style>
 </head>
@@ -708,7 +725,6 @@
     });
   }
 
-  // Feature 9: Always visible countdown timer
   function startNextPuzzleTimer() {
     if (timerInterval) clearInterval(timerInterval);
     const mainTimerEl = document.getElementById('mainTimer');
@@ -874,7 +890,7 @@
   }
 
   // Initialize
-  startNextPuzzleTimer(); // Start the timer immediately on load
+  startNextPuzzleTimer(); 
   buildKeyboard();
   playerName = loadName();
   updateNamePill();
